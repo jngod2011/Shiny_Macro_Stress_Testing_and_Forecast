@@ -1,0 +1,25 @@
+{
+    "contents" : "",
+    "created" : 1467147559411.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "4F6F7990",
+    "lastKnownWriteTime" : 1,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "nz3q03qlv0",
+        "caption" : "testsim",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=testsim&cache_key=nz3q03qlv0",
+        "displayedObservations" : 15,
+        "environment" : "",
+        "object" : "testsim",
+        "totalObservations" : 15,
+        "variables" : 1000
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}

@@ -1,0 +1,10 @@
+\documentclass{article}
+
+\begin{document}
+
+<<names>>=
+input$firstname
+input$lastname
+@
+
+\end{document}

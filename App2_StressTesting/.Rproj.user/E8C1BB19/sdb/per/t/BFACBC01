@@ -1,0 +1,18 @@
+{
+    "contents" : "serieslist<-unlist(strsplit(\"FRED/NROU,FRED/B060RC0A144NBEA\",\",\"))\nivlist<-c(\"FRED/GDP\",\"FRED/PCECC96\",\"FRED/RINV\",\"FRED/LNU01000000\",\"RATEINF/INFLATION_USA\",\"PERTH/FEDF_M\")\n\nsimdf<-read.csv('simdf.csv')\nfor (count in 1:(ncol(simdf)-1))\n{\n  for (i in 1:length(ivlist)){\n    if (ivna[i]==1){\n      latest<-Quandl(ivlist[ivna[i]],type='raw')\n      simirf<-ann*100*(exp(simdf[simdf$varname=='Y',1:ncol(simdf)-1][,count]/100)-1)\n      data<-as.data.frame((1+simirf)*latest[1,2])\n    }\n    if (ivna[i]==2){\n      latest<-Quandl(ivlist[ivna[i]],type='raw')\n      simirf<-ann*100*(exp(simdf[simdf$varname=='C',1:ncol(simdf)-1][,count]/100)-1)\n      data<-as.data.frame((1+simirf)*latest[1,2])\n    }\n    if (ivna[i]==3){\n      latest<-Quandl(ivlist[ivna[i]],type='raw')\n      simirf<-ann*100*(exp(simdf[simdf$varname=='I',1:ncol(simdf)-1][,count]/100)-1)\n      data<-as.data.frame((1+simirf)*latest[1,2])\n    }\n    if (ivna[i]==4){\n      latest<-Quandl(ivlist[ivna[i]],type='raw')\n      data<-as.data.frame(1+simdf[simdf$varname=='L',1:ncol(simdf)-1][,count])*latest[1,2]\n    }\n    if (ivna[i]==5){\n      latest<-Quandl(ivlist[ivna[i]],type='raw')\n      simirf<-ann*100*(exp(simdf[simdf$varname=='pi',1:ncol(simdf)-1][,count]/100)-1)\n      data<-as.data.frame((1+simirf)*latest[1,2])\n    }\n    if (ivna[i]==6){\n      latest<-Quandl(ivlist[ivna[i]],type='raw')\n      data<-as.data.frame(1+simdf[simdf$varname=='R',1:ncol(simdf)-1][,count])*latest[1,2]\n    }\n    if (count==1 && i==1){\n      indepdata<-data\n    }else{\n      indepdata<-cbind(indepdata,data)\n    }\n  }\n}\nn<-ncol(indepdata)/length(ivna)\nfor (i in 1:len(serieslist)){\n  depvar<-dvdata[,i]\n  indepvar<-ivdata\n  modeldata<-na.omit(as.data.frame(na.locf(merge.zoo(depvar,indepvar))))\n  colnames(modeldata)[1]<-str_replace(serieslist[i],\"/\",\".\")\n  eval(parse(text=paste0(\"fit<-lm(\",str_replace(serieslist[i],\"/\",\".\"),\"~.,data=modeldata)\")))\n  for (j in 1:n){\n    indep<-indepdata[,((j-1)*length(ivlist)+1):(j*length(ivlist))]\n    colnames(indep)<-colnames(modeldata)[2:ncol(modeldata)]\n    pred<-predict(fit, newdata=indep)\n    if (j==1){\n      ncsim<-as.data.frame(pred)\n    }else{\n      ncsim<-cbind(ncsim,pred)\n    }\n  }\n  write.csv(ncsim,paste0(str_replace(serieslist[count],\"/\",\".\"),\"_\",Sys.Date(),\"_\",forecount,\"_\",simcount,\"_MV.csv\"))\n}\nfor (i in 1:14)\n{\n  if (i==1)\n    str<-\"Period_1\"\n  else\n    str<-c(str,paste0(\"Period_\",i))\n}\nlibrary(WGCNA)\ncolQuantileC(ncsim, 0.5)\n\n\n",
+    "created" : 1466803877495.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1617392308",
+    "id" : "BFACBC01",
+    "lastKnownWriteTime" : 1467224698,
+    "path" : "~/Documents/App2_StressTesting/Untitled.R",
+    "project_path" : "Untitled.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
